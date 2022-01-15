@@ -7,8 +7,8 @@ int getint(int *pn)
 {
     int c,sign;
 
-    while (isspace(c = getch))
-    ;
+    while (isspace(c = getch()));
+
     if (!isdigit(c) && c != EOF && c != '+' && c != '-'){
         ungetch(c); /* 输入不是一个数字*/
         return 0;
@@ -39,4 +39,14 @@ void ungetch(int c)
         printf("ungetch:too many characters\n");
     else
         buf[bufp++] = c;
+}
+#define SIZE 1
+int main()
+{
+    int n, array[SIZE],getint(int *);
+    for (n = 0; n < SIZE && getint(&array[n]) != EOF; n++)
+    ;
+    for(int i = 0; i < 10; i++){
+        printf("%d",array[i]);
+    }
 }
