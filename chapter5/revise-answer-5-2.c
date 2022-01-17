@@ -58,7 +58,7 @@ int getfloat(double *pn)
 	for (*pn = 0; isdigit(c); c = getch())
 		*pn = 10 * *pn + (c - '0');
 	if (c == '.')
-		for (i = 10.0F; isdigit(c = getch()); i = i * 10.0F)
+		for (i = 10.0F; isdigit(c = getch()); i = i * 10.0F) 
 			*pn += (c - '0') / i;
 	*pn *= sign;
 	ungetch(c);
