@@ -1,32 +1,19 @@
-/*
- * Exercise 5-4. Write the function strend(s, t), which returns 1 if string t
- * occurs at the end of the string s, and zero otherwise.
- *
- * By Faisal Saadatmand
- */
+#define ALLOCSIZE 10000
 
-#include <stdio.h>
-#include <string.h>
+static  char allocbuf[ALLOCSIZE];
 
-/* functions */
-int strend(char *, char *);
+static char *allocp = allocbuf;
 
-/* strend: returns 1 if t occurs at the end of s, and zero otherwise */
-int strend(char *s, char *t)
+char * alloc(int n)
 {
-	s += strlen(s) - strlen(t); /* advance the pointer  前进指针 s 指向数组下标0*/
-	while (*s && *t)
-		if (*s++ != *t++)
-			return 0;;
-	return 1;
+    if (allocbuf + ALLOCSIZE - allocp >= n){
+        allocp +=n;
+        return allocp - n;
+    } else 
+        return 0;
 }
-
-int main(void)
+void afree(char *p)
 {
-	char string1[] = { "this is a string" };
-	char string2[] = { "string" };
-
-	printf("%i\n", strend(string1, string2));
-	
-	return 0;
+    if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
+        allocp = p;
 }
