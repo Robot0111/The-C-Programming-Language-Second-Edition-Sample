@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-
 #define MAXLINES 5000
 
 char *lineptr[MAXLINES];
@@ -10,7 +9,7 @@ void writelines(char *lineptr[],int nlines);
 
 void qsort(char *lineptr[],int left, int right);
 
-main()
+int main()
 {
     int nlines;
     if ((nlines = readlines(lineptr,MAXLINES)) >= 0)
@@ -44,9 +43,67 @@ int readlines(char *lineptr[],int maxlines)
     return nlines;
 }
 
+// void writelines(char *lineptr[],int nlines)
+// {
+//     int i;
+//     for (i = 0; i < nlines; i++)
+//         printf("%s\n",lineptr[i]);
+// }
 void writelines(char *lineptr[],int nlines)
 {
-    int i;
-    for (i = 0; i < nlines; i++)
-        printf("%s\n",lineptr[i]);
+    while(nlines-- > 0){
+        printf("%s\n",*lineptr++);
+    }
+}
+int getline(char *s, int lim)
+{
+	int c;
+	char *len;
+
+	len = s;
+	while (--lim > 0 && (c = getchar()) != EOF && c != '\n')
+		*s++ = c;
+	if (c == '\n')
+		*s++ = c;
+	*s = '\0';
+	return strlen(len);
+}
+#define ALLOCSIZE 10000
+static  char allocbuf[ALLOCSIZE];
+
+static char *allocp = allocbuf;
+
+char *alloc(int n)
+{
+    if (allocbuf + ALLOCSIZE - allocp >= n){
+        allocp +=n;
+        return allocp - n;
+    } else 
+        return 0;
+}
+void qsort(char *v[],int left,int right)
+{
+    int i,last;
+    void swap(char *v[],int i, int j);
+    if(left >= right)
+        return;
+    swap(v ,left,(left+right)/2);
+    last = left;
+    for (i = left + 1; i < right; i++)
+    {
+        if(strcmp(v[i],v[left]) < 0)
+            swap(v,++last,i);
+    }
+    swap(v,left,last);
+    qsort(v,left,last -1);
+    qsort(v,last+1,right);
+    
+}
+void swap(char *v[],int i,int j)
+{
+    char *temp;
+
+    temp = v[i];
+    v[i] = v[j];
+    v[j] = temp;
 }
