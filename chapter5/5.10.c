@@ -4,12 +4,11 @@
 
 int getline(char *line,int max);
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     char line[MAXLINE];
     long lineno = 0;
     int c,except = 0,number = 0,found = 0;
-
     while (--argc > 0 && (*++argv)[0] == '-')
         while (c = *++argv[0])
             switch (c)
@@ -39,4 +38,18 @@ main(int argc, char *argv[])
             }
         }
     return found;
+}
+
+int getline(char *s, int lim)
+{
+	int c;
+	char *len;
+
+	len = s;
+	while (--lim > 0 && (c = getchar()) != EOF && c != '\n')
+		*s++ = c;
+	if (c == '\n')
+		*s++ = c;
+	*s = '\0';
+	return strlen(len);
 }
