@@ -216,7 +216,6 @@ void choice_tickets(unsigned long long product_number,
 		}
 		choice_seq[idx] = result;
 	}
-
 	for (idx = 0; idx < choice_number; idx++) {
 		choice_one_ticket(choice_seq[idx], idx);
 	}
