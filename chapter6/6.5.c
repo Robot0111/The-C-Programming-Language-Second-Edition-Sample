@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-
+#include <stdlib.h>
 struct tnode
 {
     char *word;
@@ -51,5 +51,31 @@ struct tnode *addtree(struct tnode *p,char *w)
         p->left = addtree(p->left,w);
     else                    /* 如果大于该节点中的单词,则进入右子树 */
         p->right = addtree(p->right,w);
+    return p;
+}
+
+/* treeprint函数:按序打印树p */
+void treeprint(struct tnode *p)
+{
+    if (p != NULL){
+        treeprint(p -> left);
+        printf("%4d %s\n",p->count ,p ->word);
+        treeprint(p -> right);
+    }
+}
+
+/* talloc 函数:创建一个tnode */
+struct tnode *talloc(void)
+{
+    return (struct tnode *) malloc(sizeof(struct tnode));
+};
+
+char *strdup(char *s)
+{
+    char *p;
+
+    p = (char *) malloc(strlen(s) + 1);
+    if (p != NULL)
+        strcpy(p,s);
     return p;
 }
